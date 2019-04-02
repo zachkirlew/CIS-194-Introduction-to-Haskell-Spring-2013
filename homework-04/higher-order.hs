@@ -29,3 +29,31 @@ insert x (Node h left val right)
 height :: Tree a -> Integer
 height Leaf = -1
 height (Node n _ _ _) = n
+
+---------------------------------- Exercise 3 ----------------------------------
+ 
+----- 1. -----
+xor :: [Bool] -> Bool
+xor = foldr (/=) False
+
+----- 2. -----
+map' :: (a -> b) -> [a] -> [b]
+map' f = foldr (\x acc -> f x : acc) []
+
+
+----- 3. -----
+myFoldl :: (a -> b -> a) -> a -> [b] -> a
+myFoldl = foldr.flip
+
+---------------------------------- Exercise 4 ----------------------------------
+
+sieveSundaram :: Integer -> [Integer]
+sieveSundaram n = map ((1+).(2*)) $ filter (`notElem` (takeWhile (n>=).map tupleCheck $ cartProd range range) ) range
+    where range = [1..n]
+
+tupleCheck :: (Integer,Integer) -> Integer
+tupleCheck (i,j) = i + j + (2 * i * j)
+
+
+cartProd :: [a] -> [b] -> [(a, b)]
+cartProd xs ys = [(x,y) | x <- xs, y <- ys]
